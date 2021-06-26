@@ -12,7 +12,7 @@ class Frame:
         self.height = HEIGHT
         self.slices = []
         self.parent = parent
-        if new_frame != None:
+        if new_frame is not None:
             self.load_image(new_frame)
         else:
             self.slices = [Slice(self, None) for i in range(0, HEIGHT, 16)]

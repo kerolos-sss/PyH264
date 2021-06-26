@@ -12,7 +12,7 @@ class Slice:
         self.blocks = []
         self.parent = parent
         # Optional preload step
-        if (new_slice != None):
+        if (new_slice is not None):
             self.load_blocks(new_slice)
         else: 
             for x in range(0, WIDTH, 16):

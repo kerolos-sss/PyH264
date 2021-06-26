@@ -15,3 +15,20 @@ What's currently not supported:
 * I-frames
 * Motion prediction
 * Transport stream generation (bitmap only)
+
+## How it can work
+
+run
+
+```sh
+docker-compose up 
+```
+
+attache to the shell of the running machine 
+go to /code/project
+run
+
+```sh
+
+/code/project # python testH264.py
+```

@@ -19,7 +19,7 @@ class TransformBlock():
     # For the encode direction, create a block with an optional preload and size 
     def __init__(self, parent, new_block, kernel_size=4):
         self.parent = parent
-        if new_block != None:
+        if new_block is None:
             self.block = new_block
             self.state = "Spatial"
         else:
@@ -38,7 +38,7 @@ class TransformBlock():
 
     def dct(self):
         # DCT(block) = (cosines .* block) .* (cosines^-1)
-        if self.state != "Spatial":
+        if not hasattr(self, "state") or self.state != "Spatial":
             print("Block must be in spatial mode for DCT")
         self.block = float64(self.block)
         # Important to round; a cast by itself will cause severe aliasing
@@ -76,8 +76,8 @@ class TransformBlock():
 
     # Accessor method for VLC (to allow redirection of VLC type)
     def get_vlc(self):
-        assert self.state != "Frequency"
-        if self.state == "Spatial":
+        assert not hasattr(self, "state")  or self.state != "Frequency"
+        if hasattr(self, "state") and self.state == "Spatial":
             self.dct()
             self.quantize()
         return self.vlc_enc()
