@@ -19,12 +19,11 @@ class TransformBlock():
     # For the encode direction, create a block with an optional preload and size 
     def __init__(self, parent, new_block, kernel_size=4):
         self.parent = parent
-        if new_block is None:
+        if new_block is not None:
             self.block = new_block
             self.state = "Spatial"
         else:
             self.block = zeros((kernel_size, kernel_size))
-
         assert self.block.shape == (kernel_size, kernel_size)
 
         self.prediction_mode = "PCM"
@@ -79,7 +78,7 @@ class TransformBlock():
         assert not hasattr(self, "state")  or self.state != "Frequency"
         if hasattr(self, "state") and self.state == "Spatial":
             self.dct()
-            self.quantize()
+            self.quantize()        
         return self.vlc_enc()
 
     # Return the remaining VLC string pointer up the chain
